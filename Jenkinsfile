@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage{
+        stage("upload s3"){
             steps{
                 script{
                     sh(script:"""
