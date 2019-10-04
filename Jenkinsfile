@@ -6,7 +6,7 @@ pipeline {
         stage("git pull"){
             steps{
                 script{
-                    git branch: "master", changelog: false, url: "https://github.com/khoubyari/spring-boot-rest-example.git" 
+                    git branch: "master", changelog: false, url: "https://github.com/ankurbhatt04/spring-boot-rest-example/blob/master/Jenkinsfile" 
                 }   
             }
         }
