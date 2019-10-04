@@ -24,7 +24,9 @@ pipeline {
         stage{
             steps{
                 script{
+                    sh(script:"""
                     aws s3 cp /var/lib/jenkins/workspace/Sparsh-pipe/target/spring-boot-rest-example-0.5.0.war s3://sparsh-s3
+                    """)
 
                 }
 
