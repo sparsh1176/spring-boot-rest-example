@@ -16,12 +16,21 @@ pipeline {
                     withMaven (maven: "mavenTool")
                     {
                     sh(script:"""
-                             mvn clean package
+                    apt-get install -y openjdk-8-jdk
+                    mvn clean package
                     """)
                     }
                 }
             }
         }
+        // stage("Upload to S3"){
+        //     steps{
+        //         script{
+
+        //         }
+        //     }
+        // }
+
     }
 }    
 
