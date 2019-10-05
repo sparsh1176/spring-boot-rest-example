@@ -17,6 +17,7 @@ pipeline {
                     {
                     sh(script:"""
                     mvn clean package
+                    pwd
                     """)
                     }
                 }
