@@ -17,19 +17,26 @@ pipeline {
                     {
                     sh(script:"""
                     mvn clean package
-                    pwd
+                    apt install -y awscli
                     """)
                     }
                 }
             }
         }
-        // stage("Upload to S3"){
-        //     steps{
-        //         script{
+        stage("Upload to S3"){
+            steps{
+                script{
+                    withAWS(credentials: '41cabaff-889a-40f3-b373-141a258c94d1'){
+                        def identity = awsIdentity()
+                        sh(script:'''
+                        echo ${identity}
+                        ''')
+                        s3Upload(file:'file.txt', bucket:'my-bucket', path:'path/to/target/file.txt')
+                    }
 
-        //         }
-        //     }
-        // }
+                }
+            }
+        }
 
     }
 }    
