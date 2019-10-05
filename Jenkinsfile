@@ -16,7 +16,7 @@ pipeline {
                     withMaven (maven: "mavenTool")
                     {
                     sh(script:"""
-                    apt-get install -y openjdk-8-jdk
+                    sudo apt-get install -y openjdk-8-jdk
                     mvn clean package
                     """)
                     }
