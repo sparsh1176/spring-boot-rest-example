@@ -25,12 +25,12 @@ pipeline {
         stage("Upload to S3"){
             steps{
                 script{
-                    withAWS(credentials: '41cabaff-889a-40f3-b373-141a258c94d1'){
+                    withAWS(credentials:"aws_access_keys"){
                         def identity = awsIdentity()
                         sh(script:'''
                         echo ${identity}
                         ''')
-                        s3Upload(file:'target/*.war', bucket:'bootcamp-ankur', path:'')
+                        s3Upload(file:'target/*.war', bucket:'bootcamp-ankur', path:'$bucket_path')
                     }
 
                 }
