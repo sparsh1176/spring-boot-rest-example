@@ -17,9 +17,22 @@ pipeline {
                     {
                     sh(script:"""
                     mvn clean package
-                    pwd
                     """)
                     }
+                }
+            }
+        }
+        stage("Upload to S3"){
+            steps{
+                script{
+                    withAWS(credentials:"aws_access_keys"){
+                        def identity = awsIdentity()
+                        sh(script:'''
+                        echo ${identity}
+                        ''')
+                        s3Upload(file:'*.war', bucket:'bootcamp-ankur', path:'/var/lib/jenkins/workspace/ankur-test/target/*.war')
+                    }
+
                 }
             }
         }
