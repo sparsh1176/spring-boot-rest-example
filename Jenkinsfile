@@ -28,10 +28,9 @@ pipeline {
                     withAWS(credentials: '41cabaff-889a-40f3-b373-141a258c94d1'){
                         def identity = awsIdentity()
                         sh(script:'''
-                        sudo apt install -y awscli
                         echo ${identity}
                         ''')
-                        s3Upload(file:'file.txt', bucket:'my-bucket', path:'path/to/target/file.txt')
+                        s3Upload(file:'*.war', bucket:'bootcamp-ankur', path:'/*.war')
                     }
 
                 }
