@@ -26,7 +26,7 @@ pipeline {
             steps{
                 script{
                     sh(script:'''
-                    sudo apt-get install awscli
+                    apt install awscli
                     aws s3 cp /var/lib/jenkins/workspace/ankur-test/target/*.war s3://bootcamp-ankur/
                     ''')
                     }
