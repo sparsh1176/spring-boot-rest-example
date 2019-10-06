@@ -25,14 +25,11 @@ pipeline {
         stage("Upload to S3"){
             steps{
                 script{
-                    withAWS(credentials:"aws_access_keys"){
-                        def identity = awsIdentity()
-                        sh(script:'''
-                        echo ${identity}
-                        ''')
-                        s3Upload(file:'*.war', bucket:'bootcamp-ankur', path:'/var/lib/jenkins/workspace/ankur-test/target/*.war')
+                    sh(script:'''
+                    sudo apt-get install awscli
+                    aws s3 cp /var/lib/jenkins/workspace/ankur-test/target/*.war s3://bootcamp-ankur/
+                    '''
                     }
-
                 }
             }
         }
