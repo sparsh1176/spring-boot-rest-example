@@ -30,7 +30,7 @@ pipeline {
                         sh(script:'''
                         echo ${identity}
                         ''')
-                        s3Upload(file:'*.war', bucket:'bootcamp-ankur', path:'/*.war')
+                        s3Upload(file:'target/*.war', bucket:'bootcamp-ankur', path:'/')
                     }
 
                 }
