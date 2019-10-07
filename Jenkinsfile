@@ -37,7 +37,6 @@ pipeline {
                     withAWS(region:'us-east-1',credentials:'aws_bootcamp'){
                         def identity = awsIdentity()
                         sh(script:'''
-                        apt install awscli
                         aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name ankr_ASG
                         ''')
 
