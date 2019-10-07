@@ -31,6 +31,15 @@ pipeline {
                     }
                 }
             }
+        stage("Set Desired Capacity in ASG"){
+            steps{
+                script{
+                    withAWS(region:'us-east-1',credentials:'aws_bootcamp'){
+                        def identity = awsIdentity()
+                    }
+                }
+            }
+        }
         }
 }    
 
