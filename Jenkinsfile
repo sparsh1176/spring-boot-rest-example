@@ -35,12 +35,15 @@ pipeline {
         stage("Making a new instance"){
             steps{
                 script{
-                    aws ec2 run-instances   --image-id ami-00baf89e57474f82f --key-name Sparsh --security-groups EC2SecurityGroup --instance-type t2.micro --placement AvailabilityZone=us-east-1a --block-device-mappings DeviceName=/dev/sdh,Ebs={VolumeSize=10} --count 1
-
+                    {
+                        sh(script:"""
+                                aws ec2 run-instances   --image-id ami-00baf89e57474f82f --key-name Sparsh --security-groups EC2SecurityGroup --instance-type t2.micro --placement AvailabilityZone=us-east-1a --block-device-mappings DeviceName=/dev/sdh,Ebs={VolumeSize=10} --count 1
+                            """)
                 }
             }
         }
     }
+}
 }    
 
 
