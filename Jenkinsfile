@@ -37,7 +37,7 @@ pipeline {
                     withAWS(region:'us-east-1',credentials:'aws_bootcamp'){
                         def identity = awsIdentity()
                         sh(script:'''
-                        aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name ankr_ASG
+                        aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name ankur_ASG
                         ''')
 
                     }
