@@ -34,13 +34,12 @@ pipeline {
         stage("Set Desired Capacity in ASG"){
             steps{
                 script{
-                    withAWS(region:'us-east-1',credentials:'aws_bootcamp'){
+                    withAWS(region:'us-east-1',credentials:'aws_cred'){
                         def identity = awsIdentity()
                         sh(script:'''
                         aws autoscaling update-auto-scaling-group --auto-scaling-group-name ankur_ASG --max-size 4
                         aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 4 --honor-cooldown
-                        sleep 400s
-                        aws autoscaling update-auto-scaling-group --auto-scaling-group-name ankur_ASG --max-size 2
+                        sleep 200s
                         aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 2 --honor-cooldown
                         ''')
 
