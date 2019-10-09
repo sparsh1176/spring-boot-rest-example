@@ -37,7 +37,6 @@ pipeline {
                     withAWS(region:'us-east-1',credentials:'aws_cred'){
                         def identity = awsIdentity()
                         sh(script:'''
-                        aws autoscaling update-auto-scaling-group --auto-scaling-group-name ankur_ASG --max-size 4
                         aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 4 --honor-cooldown
                         sleep 200s
                         aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 2 --honor-cooldown
