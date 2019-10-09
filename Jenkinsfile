@@ -34,7 +34,7 @@ pipeline {
         stage("Set Desired Capacity in ASG"){
             steps{
                 script{
-                    withAWS(region:'us-east-1',credentials:'aws_bootcamp'){
+                    withAWS(region:'us-east-1',credentials:'aws_cred'){
                         def identity = awsIdentity()
                         sh(script:'''
                         aws autoscaling update-auto-scaling-group --auto-scaling-group-name Sparsh --max-size 2
