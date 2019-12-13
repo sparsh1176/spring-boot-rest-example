@@ -31,26 +31,18 @@ pipeline {
                     }
                 }
             }
-        stage("Increase ASG desired capacity"){
-            steps{
-                withAWS(region:'us-east-1'){
-                    sh ''' aws autoscaling set-desired-capacity --auto-scaling-group-name pratyush-ASG --desired-capacity 2
- '''            }
-                }
-            }
-        
-        stage("Wait for Deployment"){
+        stage("Set Desired Capacity in ASG"){
             steps{
                 script{
-                    sleep(300);
-                }
-            }
-        }
-        stage("Decrease ASG desired capacity"){
-            steps{
-                withAWS(region:'us-east-1'){
-                    sh ''' aws autoscaling set-desired-capacity --auto-scaling-group-name pratyush-ASG --desired-capacity 1
-'''
+                    withAWS(region:'us-east-1',credentials:'aws_cred'){
+                        def identity = awsIdentity()
+                        sh(script:'''
+                        aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 4 --honor-cooldown
+                        sleep 200s
+                        aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 2 --honor-cooldown
+                        ''')
+
+                    }
                 }
             }
         }
