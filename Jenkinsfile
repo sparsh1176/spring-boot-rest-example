@@ -31,19 +31,12 @@ pipeline {
                     }
                 }
             }
-          stage("setting"){
-            steps{
-                script{
-                    sh(script:'''
-                    aws aws configure set default.region us-east-1
-                    ''')
-                    }
-                }
-            }
+
 
          stage("intance"){
             steps{
                 script{
+                 withAWS(region:'us-east-1'){
                     sh(script:'''
                     aws ec2 run-instances --image-id ami-037a66cee192b7786 --count 1 --instance-type t2.micro --key-name Sparsh11761 --security-group-ids sg-0dfa1c170a62c3cf9 --subnet-id subnet-8599a8ab
                     ''')
@@ -52,4 +45,4 @@ pipeline {
             }
     }
 }
-
+}
