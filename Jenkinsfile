@@ -33,7 +33,7 @@ pipeline {
             }
 
 
-         stage("intance"){
+         stage("Launching an instance"){
             steps{
                 script{
                  withAWS(region:'us-east-1'){
@@ -44,5 +44,19 @@ pipeline {
                 }
             }
     }
-}
+        stage("Download from S3"){
+            steps{
+                script{
+                    sh(script:'''
+                    aws s3 cp s3://sparsh117612/*.war /var/lib/
+                    ''')
+                    }
+                }
+            }
+
+    
+    
+    
+    
+    }
 }
