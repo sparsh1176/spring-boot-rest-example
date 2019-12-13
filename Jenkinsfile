@@ -6,46 +6,64 @@ pipeline {
         stage("git pull"){
             steps{
                 script{
-                    git branch: "master", changelog: false, url: "https://github.com/ankurbhatt04/spring-boot-rest-example" 
+                    git branch: "master", changelog: false, url: "https://github.com/pratyushgarg15/spring-boot-rest-example.git" 
                 }   
             }
         }
         stage("maven"){
             steps{
-                    withMaven (maven: "mavenTool")
+                script{
+                    withMaven (maven: "maven-3.6.2")
                     {
                     sh(script:"""
-                    mvn clean package
+                             mvn clean package
                     """)
                     }
                 }
+            }
         }
-        stage("Upload to S3"){
+        stage("append build number"){
             steps{
                 script{
-                    sh(script:'''
-                    aws s3 cp /var/lib/jenkins/workspace/Sparsh/target/*.war s3://sparsh-s3/
-                    ''')
-                    }
+                    sh ''' #!/bin/bash
+                            cd /var/lib/jenkins/workspace/build-deploy-pipeline/target/ 
+                            ls 
+                            mv *.war spring-boot-rest-example-0.5.0-$BUILD_NUMBER.war '''
                 }
             }
-        stage("Set Desired Capacity in ASG"){
+        }
+        stage("s3 upload"){
             steps{
                 script{
-                    withAWS(region:'us-east-1',credentials:'aws_cred'){
-                        def identity = awsIdentity()
-                        sh(script:'''
-                        aws autoscaling update-auto-scaling-group --auto-scaling-group-name Sparsh --max-size 2
-                        aws autoscaling set-desired-capacity --auto-scaling-group-name Sparsh --desired-capacity 1 --honor-cooldown
-                        sleep 200s
-                        aws autoscaling set-desired-capacity --auto-scaling-group-name Sparsh --desired-capacity 1 --honor-cooldown
-                        aws autoscaling update-auto-scaling-group --auto-scaling-group-name Sparsh --max-size 1
-                        ''')
+                    
+                        s3Upload(bucket: 'pratyush-bucket', workingDir:'target', includePathPattern:'**/*.war');
 
-                    }
                 }
             }
         }
+        stage("Increase ASG desired capacity"){
+            steps{
+                withAWS(region:'us-east-1'){
+                    sh ''' aws autoscaling set-desired-capacity --auto-scaling-group-name pratyush-ASG --desired-capacity 2
+ '''            }
+                }
+            }
+        
+        stage("Wait for Deployment"){
+            steps{
+                script{
+                    sleep(300);
+                }
+            }
         }
-}    
+        stage("Decrease ASG desired capacity"){
+            steps{
+                withAWS(region:'us-east-1'){
+                    sh ''' aws autoscaling set-desired-capacity --auto-scaling-group-name pratyush-ASG --desired-capacity 1
+'''
+                }
+            }
+        }
+    }
+}
 
