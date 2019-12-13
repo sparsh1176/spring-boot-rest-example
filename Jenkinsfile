@@ -31,15 +31,7 @@ pipeline {
                     }
                 }
             }
-          stage("intance"){
-            steps{
-                script{
-                    sh(script:'''
-                    aws aws configure set default.region us-east-1
-                    ''')
-                    }
-                }
-            }
+
          stage("intance"){
             steps{
                 script{
