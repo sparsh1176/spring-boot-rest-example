@@ -12,7 +12,6 @@ pipeline {
         }
         stage("maven"){
             steps{
-                script{
                     withMaven (maven: "mavenTool")
                     {
                     sh(script:"""
@@ -20,7 +19,6 @@ pipeline {
                     """)
                     }
                 }
-            }
         }
         stage("Upload to S3"){
             steps{
