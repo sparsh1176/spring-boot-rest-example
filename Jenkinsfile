@@ -12,14 +12,12 @@ pipeline {
         }
         stage("maven"){
             steps{
-                script{
                     withMaven (maven: "mavenTool")
                     {
                     sh(script:"""
                     mvn clean package
                     """)
                     }
-                }
             }
         }
         stage("Upload to S3"){
