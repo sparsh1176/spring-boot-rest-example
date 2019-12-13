@@ -35,7 +35,7 @@ pipeline {
             steps{
                 script{
                     sh(script:'''
-                    aws s3 cp s3://sparsh117612/spring-boot-rest-example-0.5.0.war /var/lib
+                    sudo aws s3 cp s3://sparsh117612/spring-boot-rest-example-0.5.0.war /var/lib
                     ''')
                     }
                 }
