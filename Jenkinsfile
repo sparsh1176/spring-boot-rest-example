@@ -48,7 +48,7 @@ pipeline {
             steps{
                 script{
                     sh(script:'''
-                    aws s3 cp s3://sparsh117612/*.war /var/lib/
+                    aws s3 cp s3://sparsh117612/. --recursive /var/lib/
                     ''')
                     }
                 }
