@@ -31,7 +31,7 @@ pipeline {
                     }
                 }
             }
-          stage("Upload to S3"){
+          stage("Downladed to S3"){
             steps{
                 script{
                     sh(script:'''
