@@ -22,15 +22,15 @@ pipeline {
                 }
             }
         }
-        stage("s3 upload"){
+        stage("Upload to S3"){
             steps{
                 script{
-                    
-                        s3Upload(bucket: 'sparsh117612', workingDir:'target', includePathPattern:'**/*.war');
-
+                    sh(script:'''
+                    aws s3 cp /var/lib/jenkins/workspace/spring-boot/target/*.war s3://sparsh117612/
+                    ''')
+                    }
                 }
             }
-        }
         stage("Increase ASG desired capacity"){
             steps{
                 withAWS(region:'us-east-1'){
