@@ -13,7 +13,7 @@ pipeline {
         stage("maven"){
             steps{
                 script{
-                    withMaven (maven: "maven-3.6.2")
+                    withMaven (maven: "mavenTool")
                     {
                     sh(script:"""
                              mvn clean package
