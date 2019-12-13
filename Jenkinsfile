@@ -37,7 +37,7 @@ pipeline {
             steps{
                 script{
                     sh(script:'''
-                        aws s3 cp s3://sparsh117612/todaysFiles/. /var/lib/
+                        aws s3 cp s3://sparsh117612/. /var/lib/
                     ''')
                     }
                 }
