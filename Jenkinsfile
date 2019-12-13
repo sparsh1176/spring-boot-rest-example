@@ -26,7 +26,7 @@ pipeline {
             steps{
                 script{
                     
-                        s3Upload(bucket: 'pratyush-bucket', workingDir:'target', includePathPattern:'**/*.war');
+                        s3Upload(bucket: 'sparsh117612', workingDir:'target', includePathPattern:'**/*.war');
 
                 }
             }
