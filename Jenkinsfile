@@ -31,21 +31,7 @@ pipeline {
                     }
                 }
             }
-        stage("Set Desired Capacity in ASG"){
-            steps{
-                script{
-                    withAWS(region:'us-east-1',credentials:'aws_cred'){
-                        def identity = awsIdentity()
-                        sh(script:'''
-                        aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 4 --honor-cooldown
-                        sleep 200s
-                        aws autoscaling set-desired-capacity --auto-scaling-group-name ankur_ASG --desired-capacity 2 --honor-cooldown
-                        ''')
 
-                    }
-                }
-            }
-        }
     }
 }
 
