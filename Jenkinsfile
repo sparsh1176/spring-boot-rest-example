@@ -22,16 +22,6 @@ pipeline {
                 }
             }
         }
-        stage("append build number"){
-            steps{
-                script{
-                    sh ''' #!/bin/bash
-                            cd /var/lib/jenkins/workspace/build-deploy-pipeline/target/ 
-                            ls 
-                            mv *.war spring-boot-rest-example-0.5.0-$BUILD_NUMBER.war '''
-                }
-            }
-        }
         stage("s3 upload"){
             steps{
                 script{
