@@ -23,8 +23,7 @@ pipeline {
             }
       post {
        always {
-           jiraSendBuildInfo site: 'sparsh.atlassian.net'
-       }
+        jiraSendBuildInfo branch: 'TOT-1', site: 'sparsh.atlassian.net'       }
    }
     }
     }
