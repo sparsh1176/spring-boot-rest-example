@@ -21,7 +21,6 @@ pipeline {
                     }
                 }
             }
-        }
       post {
        always {
            jiraSendBuildInfo site: 'sparsh.atlassian.net'
